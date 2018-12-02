@@ -6,12 +6,15 @@ const fs = require("fs");
 router.get("/all", (req, res) => {
   const content = fs.readFileSync(notes);
   const pars = JSON.parse(content);
-  res.status(200).json(pars);
+  const titles = pars.map(o => {
+    return o.title;
+  });
+  res.status(200).json(titles);
 });
 
 router.get("/file/:title", (req, res) => {
   const title = req.params.title;
-  const content = [...fs.readFileSync(notes)];
+  const content = fs.readFileSync(notes);
   const jsonContent = JSON.parse(content);
   const markdown = jsonContent.find(obj => obj.title === title);
   res.status(200).json(markdown);
@@ -19,14 +22,17 @@ router.get("/file/:title", (req, res) => {
 
 router.post("/post", (req, res) => {
   const title = req.body.title;
+  const today = new Date();
+  const day = today.getDate();
+  const month = today.getMonth() + 1;
+  const year = today.getFullYear();
   const text = req.body.text;
-  const jsonStr = { title: title, text: text };
+  const jsonStr = { title: title, date: `${day}-${month}-${year}`, text: text };
   fs.readFile(notes, (err, data) => {
     var json = JSON.parse(data);
     json.push(jsonStr);
-    console.log(json);
     fs.writeFile(notes, JSON.stringify(json), err => {
-      if (!err) console.log("success");
+      if (!err) res.status({ success: true });
     });
   });
 });

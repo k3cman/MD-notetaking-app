@@ -165,3 +165,33 @@ blockquote {
   font-size: 1em;
   color: #333;
 }
+
+.openFile {
+  width: 500px;
+  height: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 200px;
+  border: 2px solid #fc4a1a;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+.openFile p {
+  font-size: 1em;
+  font-family: monospace;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.openSubFile {
+  display: flex;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 2em;
+  cursor: pointer;
+}
